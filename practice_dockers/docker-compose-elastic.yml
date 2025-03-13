@@ -33,6 +33,7 @@ services:
       - my_variable=hello everyone  
     ports:
       - "9200:9200" # curl -X GET -i http://localhost:9200
+     # -  
     healthcheck:
       test: ["CMD", "curl", "--silent", "--fail", "http://localhost:9200/_cluster/health"]
       interval: 5s

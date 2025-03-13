@@ -7,11 +7,13 @@ services:
     command: bash  # Run bash as the command
     volumes:
       - my_volume:/home/my_folder  # Mount the volume to /home/my_folder
-    restart: no  # Ensures it doesn't restart (similar to --rm behavior)
+    restart: "no"  # Ensures it doesn't restart (similar to --rm behavior)
 
 volumes:
   my_volume:  # Declare the named volume
 
   # Usage:
-  #       docker-compose up
+  #       docker-compose up 
   #       docker-compose down
+  #       docker-compose run --rm my_ubuntu bash
+  

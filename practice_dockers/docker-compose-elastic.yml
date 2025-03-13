@@ -1,15 +1,25 @@
-# to run:
+# to run in background:
 #        docker-compose -f docker-compose-elastic.yml up -d
-
-
+# to execute inside shell:
+#                          docker exec -it my_es_container /bin/bash
 # check status:
-#             docker-compose ps
+#              docker-compose ps
 
 # test:
 #       curl http://localhost:9200/_cluster/health
 
 
-# docker-compose becasue configuring how it runs
+# shut down and remove:
+#           docker-compose -f docker-compose-elastic.yml down
+
+
+# only stop:
+#          docker-compose -f docker-compose-elastic.yml stop
+
+
+# to inspect:
+#            docker container inspect my_es_container
+
 
 
 
@@ -22,7 +32,7 @@ services:
       - discovery.type=single-node
       - my_variable=hello everyone  
     ports:
-      - "9200:9200"
+      - "9200:9200" # curl -X GET -i http://localhost:9200
     healthcheck:
       test: ["CMD", "curl", "--silent", "--fail", "http://localhost:9200/_cluster/health"]
       interval: 5s

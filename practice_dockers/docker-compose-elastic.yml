@@ -1,0 +1,30 @@
+# to run:
+#        docker-compose -f docker-compose-elastic.yml up -d
+
+
+# check status:
+#             docker-compose ps
+
+# test:
+#       curl http://localhost:9200/_cluster/health
+
+
+# docker-compose becasue configuring how it runs
+
+
+
+
+services:
+  elasticsearch:
+    image: elasticsearch:7.2.0
+    container_name: my_es_container
+    environment:
+      - discovery.type=single-node
+      - my_variable=hello everyone  
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: ["CMD", "curl", "--silent", "--fail", "http://localhost:9200/_cluster/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10

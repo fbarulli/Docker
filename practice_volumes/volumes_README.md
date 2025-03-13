@@ -6,3 +6,6 @@
 `docker volume prune`                   # Removes all unused volumes  
 `docker run -v <volume_name>:<path> <image>`    # Runs container with volume  
 `docker run -v <volume_name>:<path>:ro <image>` # Runs with read-only volume  
+
+
+

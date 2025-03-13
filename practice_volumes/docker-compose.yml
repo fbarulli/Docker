@@ -1,0 +1,17 @@
+services:
+  my_ubuntu:
+    image: ubuntu:latest  # Use the latest Ubuntu image
+    container_name: my_ubuntu  # Name the container
+    tty: true  # Allocate a TTY (equivalent to -t)
+    stdin_open: true  # Keep STDIN open (equivalent to -i)
+    command: bash  # Run bash as the command
+    volumes:
+      - my_volume:/home/my_folder  # Mount the volume to /home/my_folder
+    restart: no  # Ensures it doesn't restart (similar to --rm behavior)
+
+volumes:
+  my_volume:  # Declare the named volume
+
+  # Usage:
+  #       docker-compose up
+  #       docker-compose down

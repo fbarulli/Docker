@@ -1,0 +1,9 @@
+services:
+  jupyter:
+      image: jupyter/minimal-notebook:ubuntu-18.04
+      ports:
+        - "8888:8888"
+  elasticsearch:
+    image: elasticsearch:7.2.0
+    environment:
+      discovery.type: single-node

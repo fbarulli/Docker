@@ -1,0 +1,14 @@
+services:
+  portainer:
+    image: portainer/portainer-ce  # The image to use
+    container_name: portainer      # Explicitly set the container name
+    restart: always                # Restart policy
+    ports:
+      - "8000:8000"                # Map host port 8000 to container port 8000
+      - "9000:9000"                # Map host port 9000 to container port 9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket
+      - portainer_data:/data                       # Mount named volume
+
+volumes:
+  portainer_data:  # Declare the named volume

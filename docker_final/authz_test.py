@@ -1,22 +1,22 @@
-# authentication test
 import os
 import requests
 
-api_address = 'api'  # Container name in Docker Compose
+api_address = 'api'
 api_port = 8000
+sentence = 'test sentence'
 
-def run_auth_test(username, password, expected_status):
+def run_authz_test(username, password, endpoint, expected_status):
     r = requests.get(
-        url=f'http://{api_address}:{api_port}/permissions',
-        params={'username': username, 'password': password}
+        url=f'http://{api_address}:{api_port}/{endpoint}',
+        params={'username': username, 'password': password, 'sentence': sentence}
     )
     status_code = r.status_code
     test_status = 'SUCCESS' if status_code == expected_status else 'FAILURE'
     output = f'''
 ============================
-    Authentication test
+    Authorization test
 ============================
-request done at "/permissions"
+request done at "/{endpoint}"
 | username="{username}"
 | password="{password}"
 expected result = {expected_status}
@@ -31,10 +31,11 @@ actual result = {status_code}
 
 # Run all test cases
 results = [
-    run_auth_test('alice', 'wonderland', 200),
-    run_auth_test('bob', 'builder', 200),
-    run_auth_test('clementine', 'mandarine', 403)
+    run_authz_test('bob', 'builder', 'v1/sentiment', 200),
+    run_authz_test('bob', 'builder', 'v2/sentiment', 403),
+    run_authz_test('alice', 'wonderland', 'v1/sentiment', 200),
+    run_authz_test('alice', 'wonderland', 'v2/sentiment', 200)
 ]
 
 if not all(results):
-    exit(1)  # Exit with error if any test fails
+    exit(1)

@@ -1,2 +1,2 @@
-FROM python:3.10
-RUN pip install requests==2.28.1 --no-cache-dir
+FROM python:3.10-alpine
+RUN pip install --no-cache-dir requests==2.28.1 --progress-bar off

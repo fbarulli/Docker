@@ -7,38 +7,50 @@ services:
     networks:
       - test-network
   auth-test:
-    build: .
+    build:
+      context: .
+      args:
+        TEST_FILE: auth_test.py
     volumes:
-      - log-volume:/app
+      - log-volume:/app/logs
+      - ./requirements.txt:/app/requirements.txt
     environment:
       - LOG=1
     depends_on:
       - api
     networks:
       - test-network
-    command: ["python", "auth_test.py"]
+    command: ["python", "test.py"]
   authz-test:
-    build: .
+    build:
+      context: .
+      args:
+        TEST_FILE: authz_test.py
     volumes:
-      - log-volume:/app
+      - log-volume:/app/logs
+      - ./requirements.txt:/app/requirements.txt
     environment:
       - LOG=1
     depends_on:
       - api
     networks:
       - test-network
-    command: ["python", "authz_test.py"]
+    command: ["python", "test.py"]
   content-test:
-    build: .
+    build:
+      context: .
+      args:
+        TEST_FILE: content_test.py
     volumes:
-      - log-volume:/app
+      - log-volume:/app/logs
+      - ./requirements.txt:/app/requirements.txt
     environment:
       - LOG=1
     depends_on:
       - api
     networks:
       - test-network
-    command: ["python", "content_test.py"]
+    command: ["python", "test.py"]
 networks:
   test-network:
     driver: bridge

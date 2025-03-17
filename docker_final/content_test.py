@@ -30,7 +30,7 @@ actual score = {score}
 '''
     print(output)
     if os.environ.get('LOG') == '1':
-        with open('/app/api_test.log', 'a') as file:
+        with open('/app/logs/api_test.log', 'a') as file:
             file.write(output)
     return test_status == 'SUCCESS'
 

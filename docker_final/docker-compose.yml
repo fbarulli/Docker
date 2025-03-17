@@ -1,0 +1,46 @@
+services:
+  api:
+    image: datascientest/fastapi:1.0.0
+    container_name: api
+    ports:
+      - "8000:8000"
+    networks:
+      - test-network
+  auth-test:
+    build: .
+    volumes:
+      - log-volume:/app
+    environment:
+      - LOG=1
+    depends_on:
+      - api
+    networks:
+      - test-network
+    command: ["python", "auth_test.py"]
+  authz-test:
+    build: .
+    volumes:
+      - log-volume:/app
+    environment:
+      - LOG=1
+    depends_on:
+      - api
+    networks:
+      - test-network
+    command: ["python", "authz_test.py"]
+  content-test:
+    build: .
+    volumes:
+      - log-volume:/app
+    environment:
+      - LOG=1
+    depends_on:
+      - api
+    networks:
+      - test-network
+    command: ["python", "content_test.py"]
+networks:
+  test-network:
+    driver: bridge
+volumes:
+  log-volume:
